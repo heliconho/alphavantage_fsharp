@@ -1,14 +1,14 @@
 Data Feed --> Strategy --> Execution
     Data Feed -> Alphavantage
     Strategy -> SMA/MA/etc
-    Execution -> IB API
+    Execution -> IB API or Something else
+
+Data Feed :
+    json -> tuple (order by date)
+    select new json.date that greater than the db record.date skip. else insert
 
 
-json -> tuple (order by date)
-select new json.date that greater than the db record.date skip. else 
-
-
-BactTest
+BackTest
 1. First of all we determine the (technical) strategy to be tested
 2. As a result, we list the market data we need; typically one or more instruments and zero or more indicators
 3. We write a function that BT will call (as callback).  Later we’ll see how.
