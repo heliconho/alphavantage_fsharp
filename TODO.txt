@@ -1,0 +1,16 @@
+Data Feed --> Strategy --> Execution
+    Data Feed -> Alphavantage
+    Strategy -> SMA/MA/etc
+    Execution -> IB API
+
+
+json -> tuple (order by date)
+select new json.date that greater than the db record.date skip. else 
+
+
+BactTest
+1. First of all we determine the (technical) strategy to be tested
+2. As a result, we list the market data we need; typically one or more instruments and zero or more indicators
+3. We write a function that BT will call (as callback).  Later we’ll see how.
+4. We call a backtest function passing both the market data and the callback
+5. We receive as returned result a backtest report containing the list of trading operations and the final financial result of our strategy (profit or loss)

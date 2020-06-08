@@ -1,0 +1,46 @@
+
+//CRUD
+let selectFunctionTypebyId(Id : int) : Result<FunctionType,exn> =
+    defaultConnection
+    |> Sql.connectFromConfig
+    |> Sql.query @"SELECT * FROM ""functypes"" WHERE ""Id"" = @Id;"
+    |> Sql.parameters["@Id", Sql.int Id]
+    |> Sql.executeRow( fun read -> {
+        Id = read.int "Id"
+        FunctionType = read.string "FunctionType"
+    })
+
+let selectFunctionTypebyName(functypename : string) : Result<FunctionType,exn> =
+    defaultConnection
+    |> Sql.connectFromConfig
+    |> Sql.query @"SELECT * FROM ""functypes"" WHERE ""FunctionType"" = @FunctionType;"
+    |> Sql.parameters["@FunctionType", Sql.string functypename]
+    |> Sql.executeRow( fun read -> {
+        Id = read.int "Id"
+        FunctionType = read.string "FunctionType"
+    })
+
+let createFeed(record : FeedRecord) =
+    defaultConnection
+    |> Sql.connectFromConfig
+    |> Sql.executeTransaction[
+        @"INSERT INTO public.""feed""( ""feedsdatetime"", ""opens"", ""highs"", ""lows"", ""closes"", ""volume"", ""functionid"" ) VALUES ( @feedsdatetime, @opens, @highs, @lows, @closes, @volume, @functionid );", [
+        [ "@feedsdatetime", Sql.string record.FeedDateTime ]
+        [ "@opens", Sql.double record.Open ]
+        [ "@highs", Sql.double record.High ]
+        [ "@lows", Sql.double record.Low ]
+        [ "@closes", Sql.double record.Close ]
+        [ "@volume", Sql.int record.Volume ]
+        [ "@functionid", Sql.int record.FunctionId ]
+    ]
+]
+
+let createFunctype(records : FunctionType list) =
+    defaultConnection
+    |> Sql.connectFromConfig
+    |> Sql.executeTransaction[
+        @"INSERT INTO public.""functypes""(""FunctionType"") VALUES (@FunctionType);", [
+            for record in records do
+            [ "@FeedDateTime", Sql.string record.FunctionType ]
+        ]
+    ]   
