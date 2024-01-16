@@ -15,7 +15,7 @@
     <PackageReference Include="FSharp.Json" Version="0.4.0"/>
     <PackageReference Include="FSharp.Data" Version="3.3.3"/>
     <PackageReference Include="Deedle" Version="2.1.2"/>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1"/>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6"/>
     <PackageReference Include="Dapper" Version="2.0.35"/>
     <PackageReference Include="GeoJSON" Version="2.1.0"/>
     <PackageReference Include="XPlot.Plotly" Version="3.0.1"/>
